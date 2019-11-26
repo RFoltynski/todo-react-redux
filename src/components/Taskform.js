@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { createTask } from "../actions/taskActions";
 
 class Taskform extends Component {
   constructor(props) {
@@ -19,15 +21,7 @@ class Taskform extends Component {
       title: this.state.title
     };
 
-    fetch("https://jsonplaceholder.typicode.com/todos ", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json"
-      },
-      body: JSON.stringify(task)
-    })
-      .then(res => res.json())
-      .then(data => console.log(data));
+    this.props.createTask(task);
   };
 
   render() {
@@ -48,4 +42,4 @@ class Taskform extends Component {
     );
   }
 }
-export default Taskform;
+export default connect(null, { createTask })(Taskform);
