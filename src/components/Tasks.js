@@ -1,20 +1,13 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { fetchTasks } from "../actions/taskActions";
 
 class Tasks extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      tasks: []
-    };
-  }
   componentWillMount() {
-    fetch("https://jsonplaceholder.typicode.com/todos ")
-      .then(res => res.json())
-      .then(data => this.setState({ tasks: data }));
+    this.props.fetchTasks();
   }
-
   render() {
-    let postItems = this.state.tasks.map(item => {
+    let postItems = this.props.tasks.map(item => {
       return (
         <div key={item.id}>
           <h1>Task: {item.title}</h1>
@@ -25,4 +18,8 @@ class Tasks extends Component {
     return <div>Tasks:{postItems}</div>;
   }
 }
-export default Tasks;
+
+const mapStateToProps = state => ({
+  tasks: state.tasks.items
+});
+export default connect(mapStateToProps, { fetchTasks })(Tasks);
