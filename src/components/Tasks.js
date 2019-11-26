@@ -18,6 +18,7 @@ class Tasks extends Component {
       return (
         <div key={item.id}>
           <h1>Task: {item.title}</h1>
+          <div>Completed: {`${item.completed}`}</div>
         </div>
       );
     });

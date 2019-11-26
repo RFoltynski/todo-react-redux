@@ -11,10 +11,29 @@ class Taskform extends Component {
       [e.target.name]: e.target.value
     });
   };
+
+  onSubmit = e => {
+    e.preventDefault();
+
+    const task = {
+      title: this.state.title
+    };
+
+    fetch("https://jsonplaceholder.typicode.com/todos ", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json"
+      },
+      body: JSON.stringify(task)
+    })
+      .then(res => res.json())
+      .then(data => console.log(data));
+  };
+
   render() {
     return (
       <div>
-        <form onSubmit="Submit">
+        <form onSubmit={this.onSubmit}>
           <label>Task</label>
           <br></br>
           <input
